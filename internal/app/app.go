@@ -4,6 +4,7 @@ import (
 	"context"
 	"github.com/dek0valev/niwa/internal/config"
 	"github.com/dek0valev/niwa/internal/content"
+	"github.com/dek0valev/niwa/internal/handlers"
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting/v2"
 	meta "github.com/yuin/goldmark-meta"
@@ -36,18 +37,15 @@ func NewApp(cfg *config.Config, log *slog.Logger) *App {
 		os.Exit(1)
 	}
 
+	homeHandler := handlers.NewHomeHandler(store)
+
 	hfs := http.FileServer(http.Dir("web/static"))
 
 	r := http.NewServeMux()
 
 	r.Handle("GET /static/", http.StripPrefix("/static/", hfs))
 
-	r.HandleFunc("GET /{$}", func(w http.ResponseWriter, r *http.Request) {
-		if _, err := w.Write([]byte("Oh, hi!")); err != nil {
-			http.Error(w, "Не удалось записать ответ", http.StatusInternalServerError)
-			return
-		}
-	})
+	r.Handle("GET /{$}", homeHandler)
 
 	hs := &http.Server{
 		Addr:    ":8080",
