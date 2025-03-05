@@ -38,6 +38,7 @@ func NewApp(cfg *config.Config, log *slog.Logger) *App {
 	}
 
 	homeHandler := handlers.NewHomeHandler(store)
+	blogHandler := handlers.NewBlogHandler(store)
 
 	hfs := http.FileServer(http.Dir("web/static"))
 
@@ -46,6 +47,7 @@ func NewApp(cfg *config.Config, log *slog.Logger) *App {
 	r.Handle("GET /static/", http.StripPrefix("/static/", hfs))
 
 	r.Handle("GET /{$}", homeHandler)
+	r.Handle("GET /blog", blogHandler)
 
 	hs := &http.Server{
 		Addr:    ":8080",
