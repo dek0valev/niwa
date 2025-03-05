@@ -1,18 +1,24 @@
 package app
 
 import (
+	"context"
 	"github.com/dek0valev/niwa/internal/config"
 	"github.com/dek0valev/niwa/internal/content"
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting/v2"
 	meta "github.com/yuin/goldmark-meta"
 	"log/slog"
+	"net/http"
 	"os"
+	"os/signal"
+	"syscall"
+	"time"
 )
 
 type App struct {
 	cfg *config.Config
 	log *slog.Logger
+	hs  *http.Server
 }
 
 func NewApp(cfg *config.Config, log *slog.Logger) *App {
@@ -30,12 +36,49 @@ func NewApp(cfg *config.Config, log *slog.Logger) *App {
 		os.Exit(1)
 	}
 
+	r := http.NewServeMux()
+
+	r.HandleFunc("GET /{$}", func(w http.ResponseWriter, r *http.Request) {
+		if _, err := w.Write([]byte("Oh, hi!")); err != nil {
+			http.Error(w, "Не удалось записать ответ", http.StatusInternalServerError)
+			return
+		}
+	})
+
+	hs := &http.Server{
+		Addr:    ":8080",
+		Handler: r,
+	}
+
 	return &App{
 		cfg: cfg,
 		log: log,
+		hs:  hs,
 	}
 }
 
 func (a *App) Run() {
 	a.log.Info("Запуск приложения")
+
+	stopChan := make(chan os.Signal, 1)
+	signal.Notify(stopChan, syscall.SIGINT, syscall.SIGTERM)
+
+	go func() {
+		if err := a.hs.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			a.log.Error("Не удалось запустить сервер: " + err.Error())
+			os.Exit(1)
+		}
+	}()
+
+	<-stopChan
+
+	ctx, cancel := context.WithTimeout(context.Background(), 5*time.Second)
+	defer cancel()
+
+	if err := a.hs.Shutdown(ctx); err != nil {
+		a.log.Error("Не удалось остановить сервер: " + err.Error())
+		os.Exit(1)
+	}
+
+	a.log.Info("Сервер успешно остановлен")
 }
