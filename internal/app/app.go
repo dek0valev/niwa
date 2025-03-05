@@ -36,7 +36,11 @@ func NewApp(cfg *config.Config, log *slog.Logger) *App {
 		os.Exit(1)
 	}
 
+	hfs := http.FileServer(http.Dir("web/static"))
+
 	r := http.NewServeMux()
+
+	r.Handle("GET /static/", http.StripPrefix("/static/", hfs))
 
 	r.HandleFunc("GET /{$}", func(w http.ResponseWriter, r *http.Request) {
 		if _, err := w.Write([]byte("Oh, hi!")); err != nil {
