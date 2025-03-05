@@ -19,6 +19,7 @@ func NewHomeHandler(store *content.Store) *HomeHandler {
 func (h *HomeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles(
 		"web/templates/layouts/base/base.gohtml",
+		"web/templates/layouts/base/partials/header.gohtml",
 		"web/templates/pages/home/home.gohtml",
 	))
 

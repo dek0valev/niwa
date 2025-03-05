@@ -27,6 +27,7 @@ func (h *ArticleHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	tmpl := template.Must(preTmpl.ParseFiles(
 		"web/templates/layouts/base/base.gohtml",
+		"web/templates/layouts/base/partials/header.gohtml",
 		"web/templates/pages/article/article.gohtml",
 	))
 

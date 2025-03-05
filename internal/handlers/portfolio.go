@@ -19,6 +19,7 @@ func NewPortfolioHandler(store *content.Store) *PortfolioHandler {
 func (h *PortfolioHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	tmpl := template.Must(template.ParseFiles(
 		"web/templates/layouts/base/base.gohtml",
+		"web/templates/layouts/base/partials/header.gohtml",
 		"web/templates/pages/portfolio/portfolio.gohtml",
 	))
 
