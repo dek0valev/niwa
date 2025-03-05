@@ -1,0 +1,25 @@
+{{define "title"}}Блог | KOVALEV{{end}}
+
+{{define "content"}}
+    <section>
+        <div class="py-12">
+            <div class="w-full max-w-3xl mx-auto px-4">
+                <div class="flex flex-col">
+                    <div class="flex flex-col mb-4 md:mb-6">
+                        <h1 class="text-2xl md:text-3xl font-medium text-stone-900">Блог</h1>
+                    </div>
+                    <div class="flex flex-col gap-y-4">
+                        {{range .}}
+                            <article class="relative isolate flex flex-col md:flex-row md:items-center md:justify-between gap-y-1 gap-x-2">
+                                <h4 class="flex flex-col md:text-lg font-medium text-blue-600 group">
+                                    <a href="/blog/{{.Slug}}" class="inline-block underline-offset-4 group-hover:underline after:absolute after:inset-0">{{.Title}}</a>
+                                </h4>
+                                <time class="text-sm md:text-base">{{.PublishedAt.Format "2006-01-02"}}</time>
+                            </article>
+                        {{end}}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+{{end}}
