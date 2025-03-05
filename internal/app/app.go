@@ -8,6 +8,7 @@ import (
 	"github.com/yuin/goldmark"
 	highlighting "github.com/yuin/goldmark-highlighting/v2"
 	meta "github.com/yuin/goldmark-meta"
+	"github.com/yuin/goldmark/extension"
 	"log/slog"
 	"net/http"
 	"os"
@@ -24,7 +25,7 @@ type App struct {
 
 func NewApp(cfg *config.Config, log *slog.Logger) *App {
 	md := goldmark.New(
-		goldmark.WithExtensions(meta.Meta, highlighting.NewHighlighting(
+		goldmark.WithExtensions(meta.Meta, extension.GFM, highlighting.NewHighlighting(
 			highlighting.WithStyle("github-dark"),
 		)),
 	)
