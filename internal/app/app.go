@@ -41,6 +41,7 @@ func NewApp(cfg *config.Config, log *slog.Logger) *App {
 	homeHandler := handlers.NewHomeHandler(store)
 	blogHandler := handlers.NewBlogHandler(store)
 	articleHandler := handlers.NewArticleHandler(store)
+	portfolioHandler := handlers.NewPortfolioHandler(store)
 
 	hfs := http.FileServer(http.Dir("web/static"))
 
@@ -51,6 +52,7 @@ func NewApp(cfg *config.Config, log *slog.Logger) *App {
 	r.Handle("GET /{$}", homeHandler)
 	r.Handle("GET /blog", blogHandler)
 	r.Handle("GET /blog/{slug}", articleHandler)
+	r.Handle("GET /portfolio", portfolioHandler)
 
 	hs := &http.Server{
 		Addr:    ":8080",
