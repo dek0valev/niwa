@@ -2,14 +2,13 @@ package main
 
 import (
 	"flag"
-	"fmt"
 	"github.com/dek0valev/niwa/internal/config"
+	"github.com/dek0valev/niwa/pkg/logger"
 	"github.com/dek0valev/niwa/pkg/must"
+	"log/slog"
 )
 
 func main() {
-	fmt.Println("庭 | Niwa")
-
 	var configPath string
 
 	flag.StringVar(&configPath, "config", "", "path to config file")
@@ -17,5 +16,6 @@ func main() {
 
 	cfg := must.Must(config.NewConfig(configPath))
 
-	fmt.Println("Env:", cfg.Env)
+	log := logger.NewLogger(cfg.Env)
+	log.Info("庭 | Niwa", slog.String("env", cfg.Env))
 }
