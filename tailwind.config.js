@@ -2,7 +2,15 @@
 export default {
   content: ["./web/templates/**/*.{js,ts,html,gohtml}"],
   theme: {
-    extend: {},
+    extend: {
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: "1rem",
+          md: "2rem",
+        }
+      }
+    },
   },
   plugins: [],
 }
