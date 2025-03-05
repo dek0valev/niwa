@@ -1,0 +1,10 @@
+{
+  "name": "@dek0valev/niwa",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}
