@@ -8,6 +8,12 @@ import (
 
 type Config struct {
 	Env string `yaml:"env" env-default:"local"`
+
+	Content ContentConfig `yaml:"content"`
+}
+
+type ContentConfig struct {
+	ArticlesDir string `yaml:"articles_dir"`
 }
 
 func NewConfig(configPath string) (*Config, error) {
