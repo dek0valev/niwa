@@ -23,8 +23,10 @@ func (h *HomeHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 		"web/templates/pages/home/home.gohtml",
 	))
 
+	articles := h.store.Articles()
+
 	w.Header().Set("Content-Type", "text/html; charset=utf-8")
-	if err := tmpl.ExecuteTemplate(w, "base", nil); err != nil {
+	if err := tmpl.ExecuteTemplate(w, "base", articles); err != nil {
 		http.Error(w, "Не удалось отрисовать шаблон", http.StatusInternalServerError)
 		return
 	}
