@@ -38,6 +38,8 @@ func NewApp(cfg *config.Config, log *slog.Logger) *App {
 		os.Exit(1)
 	}
 
+	sitemapHandler := handlers.NewSitemapHandler(store, cfg.BaseURL)
+
 	homeHandler := handlers.NewHomeHandler(store)
 	blogHandler := handlers.NewBlogHandler(store)
 	articleHandler := handlers.NewArticleHandler(store)
@@ -48,6 +50,8 @@ func NewApp(cfg *config.Config, log *slog.Logger) *App {
 	r := http.NewServeMux()
 
 	r.Handle("GET /static/", http.StripPrefix("/static/", hfs))
+
+	r.Handle("GET /sitemap.xml", sitemapHandler)
 
 	r.Handle("GET /{$}", homeHandler)
 	r.Handle("GET /blog", blogHandler)
