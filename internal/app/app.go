@@ -39,6 +39,7 @@ func NewApp(cfg *config.Config, log *slog.Logger) *App {
 	}
 
 	sitemapHandler := handlers.NewSitemapHandler(store, cfg.BaseURL)
+	robotsHandler := handlers.NewRobotsHandler(store, cfg.BaseURL)
 
 	homeHandler := handlers.NewHomeHandler(store)
 	blogHandler := handlers.NewBlogHandler(store)
@@ -52,6 +53,7 @@ func NewApp(cfg *config.Config, log *slog.Logger) *App {
 	r.Handle("GET /static/", http.StripPrefix("/static/", hfs))
 
 	r.Handle("GET /sitemap.xml", sitemapHandler)
+	r.Handle("GET /robots.txt", robotsHandler)
 
 	r.Handle("GET /{$}", homeHandler)
 	r.Handle("GET /blog", blogHandler)
