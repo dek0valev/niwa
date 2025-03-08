@@ -9,6 +9,8 @@ import (
 type Config struct {
 	Env string `yaml:"env" env-default:"local"`
 
+	BaseURL string `yaml:"base_url" env:"BASE_URL" env-required:"true"`
+
 	Content ContentConfig `yaml:"content"`
 }
 
