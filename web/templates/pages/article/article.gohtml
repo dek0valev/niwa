@@ -2,6 +2,24 @@
 
 {{define "meta"}}
     <meta name="description" content="{{.Description}}">
+
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="https://k0valev.com/blog/{{.Slug}}" />
+    <meta property="og:title" content="{{.Title}}" />
+    <meta property="og:description" content="{{.Description}}" />
+    <meta property="og:image" content="https://k0valev.com/static/images/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:site_name" content="KOVALEV" />
+    <meta property="og:locale" content="ru_RU" />
+    <meta property="article:published_time" content="2025-03-06T12:00:00+03:00" />
+    <meta property="article:author" content="Ден Ковалев" />
+
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:url" content="https://k0valev.com/blog/{{.Slug}}" />
+    <meta name="twitter:title" content="{{.Title}}" />
+    <meta name="twitter:description" content="{{.Description}}" />
+    <meta name="twitter:image" content="https://k0valev.com/static/images/og.png" />
 {{end}}
 
 {{define "content"}}

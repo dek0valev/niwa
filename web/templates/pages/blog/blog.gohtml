@@ -1,5 +1,25 @@
 {{define "title"}}Блог | KOVALEV{{end}}
 
+{{define "meta"}}
+    <meta name="description" content="Блог back-end разработчика и путешественника Дена Ковалева">
+
+    <meta property="og:type" content="website"/>
+    <meta property="og:url" content="https://k0valev.com/"/>
+    <meta property="og:title" content="Блог | KOVALEV"/>
+    <meta property="og:description" content="Блог back-end разработчика и путешественника Дена Ковалева"/>
+    <meta property="og:image" content="https://k0valev.com/static/images/og.png"/>
+    <meta property="og:image:width" content="1200"/>
+    <meta property="og:image:height" content="630"/>
+    <meta property="og:site_name" content="KOVALEV"/>
+    <meta property="og:locale" content="ru_RU"/>
+
+    <meta name="twitter:card" content="summary_large_image"/>
+    <meta name="twitter:url" content="https://k0valev.com/"/>
+    <meta name="twitter:title" content="Блог | KOVALEV"/>
+    <meta name="twitter:description" content="Блог back-end разработчика и путешественника Дена Ковалева"/>
+    <meta name="twitter:image" content="https://k0valev.com/static/images/og.png"/>
+{{end}}
+
 {{define "content"}}
     <section>
         <div>
@@ -10,9 +30,11 @@
                     </div>
                     <div class="flex flex-col gap-y-4">
                         {{range .}}
-                            <article class="relative isolate flex flex-col md:flex-row md:items-center md:justify-between gap-y-1 gap-x-2">
+                            <article
+                                    class="relative isolate flex flex-col md:flex-row md:items-center md:justify-between gap-y-1 gap-x-2">
                                 <h4 class="flex flex-col md:text-lg font-medium text-blue-600 group">
-                                    <a href="/blog/{{.Slug}}" class="inline-block underline-offset-4 group-hover:underline after:absolute after:inset-0">{{.Title}}</a>
+                                    <a href="/blog/{{.Slug}}"
+                                       class="inline-block underline-offset-4 group-hover:underline after:absolute after:inset-0">{{.Title}}</a>
                                 </h4>
                                 <time class="text-sm md:text-base">{{.PublishedAt.Format "2006-01-02"}}</time>
                             </article>
