@@ -1,0 +1,15 @@
+{
+  "name": "@dek0valev/niwa",
+  "type": "module",
+  "scripts": {
+    "tailwind": "npx tailwindcss -i ./web/assets/main.css -o ./web/static/css/main.css"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.5.16",
+    "@types/bun": "latest",
+    "tailwindcss": "3"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  }
+}

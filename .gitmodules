@@ -1,0 +1,4 @@
+[submodule "content"]
+	path = content
+	url = https://github.com/dek0valev/content.git
+	ignore = all

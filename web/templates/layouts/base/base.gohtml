@@ -1,0 +1,27 @@
+{{define "base"}}
+    <!doctype html>
+    <html lang="ru">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <link rel="apple-touch-icon" sizes="180x180" href="/static/favicon/apple-touch-icon.png">
+        <link rel="icon" type="image/png" sizes="32x32" href="/static/favicon/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/static/favicon/favicon-16x16.png">
+        <link rel="manifest" href="/static/favicon/site.webmanifest">
+
+        <link rel="stylesheet" href="/static/css/main.css">
+        {{block "styles" .}}{{end}}
+
+        <title>{{block "title" .}}KOVALEV{{end}}</title>
+        {{block "meta" .}}{{end}}
+    </head>
+    <body class="min-h-dvh w-full bg-stone-100 text-stone-600 antialiased dark:bg-stone-900 dark:text-stone-300">
+    {{template "header" .}}
+    <main id="content" class="py-8 md:py-12">
+        {{block "content" .}}{{end}}
+    </main>
+    {{block "scripts" .}}{{end}}
+    </body>
+    </html>
+{{end}}
